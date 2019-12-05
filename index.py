@@ -2,6 +2,7 @@ from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
 import numpy as np
 import pandas as pd
+import ufc_utils
 import ufc_logistic_regression
 import json
 
@@ -23,7 +24,7 @@ def example():
         for stat, value in stats.items():
             if stat in raw_frame.columns:
                 raw_frame[stat][0] = value
-    fighter_diffs = ufc_logistic_regression.create_diffs(raw_frame)
+    fighter_diffs = ufc_utils.create_diffs(raw_frame)
     fighter_diffs = fighter_diffs.fillna(0)
     prediction = ufc_logistic_regression.model.predict(fighter_diffs.drop('BlueFightWin', axis=1))
     if prediction[0] == 0:
