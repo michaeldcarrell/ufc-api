@@ -14,3 +14,5 @@ pandas
 seaborn
 scipy
 gunicorn
+flask
+flask_api
