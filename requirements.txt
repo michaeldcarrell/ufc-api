@@ -13,3 +13,4 @@ sklearn
 pandas
 seaborn
 scipy
+gunicorn

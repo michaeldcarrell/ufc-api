@@ -1,0 +1,1 @@
+web: gunicorn ufc-api:app
