@@ -1,6 +1,21 @@
 import pandas as pd
 
 
+def acceptable_inputs(data_frame):
+    columns = data_frame.columns.to_list()
+    attrs = {}
+    for column in columns:
+        if column[:2] == 'B_':
+            if 'R_' + column[2:] in columns:
+                columns.remove('R_' + column[2:])
+                attrs[column[2:]] = [column[2:].replace('_', ' ').upper(), column, 'R_' + column[2:]]
+        elif column[:2] == 'R_':
+            if 'B_' + column[2:] in columns:
+                columns.remove('B_' + column[2:])
+                attrs[column[2:]] = [column[2:].replace('_', ' ').upper(), 'B_' + column[2:], column]
+    return attrs
+
+
 def create_diffs(ufc):
     diffs = pd.DataFrame(
         data={

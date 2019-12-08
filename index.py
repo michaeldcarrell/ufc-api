@@ -4,14 +4,22 @@ import numpy as np
 import pandas as pd
 import ufc_utils
 import ufc_logistic_regression
+from sklearn.metrics import classification_report, confusion_matrix
 import json
 
 app = FlaskAPI(__name__)
 
+ufc_data = pd.read_csv("data/data.csv")
+
+
+@app.route('/acceptable_inputs')
+def acceptable_inputs():
+    return ufc_utils.acceptable_inputs(ufc_data)
+
 
 @app.route('/logistic_regression')
-def example():
-    raw_frame = ufc_logistic_regression.ufc_data
+def logit_model():
+    raw_frame = ufc_data
     raw_frame = pd.DataFrame(np.zeros(shape=(1, raw_frame.shape[1])), columns=raw_frame.columns)
     blue = ''
     red = ''
